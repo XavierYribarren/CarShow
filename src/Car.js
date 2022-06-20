@@ -1,6 +1,7 @@
-import { useLoader } from "@react-three/fiber";
+import { useLoader, useFrame } from "@react-three/fiber";
 import React, { useEffect } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
 import { Mesh } from "three";
 
 export function Car() {
@@ -10,17 +11,34 @@ export function Car() {
   );
 
   useEffect(() => {
-    gltf.scene.scale.set(50, 50, 50);
-    gltf.scene.position.set(0, 0.1, 0);
+    gltf.scene.scale.set(75, 75, 75);
+    gltf.scene.position.set(0, 0.15, 0);
     gltf.scene.traverse((object) => {
       if (object instanceof Mesh) {
-        object.shadow = true;
+        object.castShadow = true;
         object.receiveShadow = true;
         object.material.envMapIntensity = 20;
-        console.log(gltf)
+
+        // console.log(object )
       }
     });
+    console.log(gltf.scene.children[0].children[0].children[0].children[0]);
+    gltf.scene.children[0].children[0].children[0].children[0].children[3].children[0].material.color = {r:0.1,g:0.01,b:0.2};
+    gltf.scene.children[0].children[0].children[0].children[0].children[4].children[0].material.color = {r:0.1,g:0.1,b:0.2};
+    gltf.scene.children[0].children[0].children[0].children[0].children[12].children[0].material.color = {r:0.01,g:0.01,b:0.01}
+// gltf.scene.children[0].children[0].children[0].children[0].children[32]
+// gltf.scene.children[0].children[0].children[0].children[0].children[33]
+// gltf.scene.children[0].children[0].children[0].children[0].children[34]
   }, [gltf]);
 
-  return <primitive object={gltf.scene} />;
+  useFrame((state, delta)=> {
+    let t = state.clock.getElapsedTime();
+
+    let group = gltf.scene.children[0].children[0].children[0].children[0];
+    group.children[12].rotation.y = t*2;
+    group.children[32].rotation.y = t*2;
+    group.children[33].rotation.y = t*2;
+    group.children[34].rotation.y = t*2;
+  })
+  return <primitive object={gltf.scene} rotation-y={-1.53} />;
 }
