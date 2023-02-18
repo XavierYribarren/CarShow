@@ -2,13 +2,12 @@ import { useGLTF, Clone } from '@react-three/drei'
 import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from 'three'
-import { useRef, useState } from 'react';
-import { useSpring, config } from '@react-spring/three';
-import { Color } from 'three';
+import { useRef } from 'react';
+
 
 export function Trees(){
     const tree = useRef()
-    const time = useRef(0);
+
      const itemsRef = useRef([]);
 
      let arrus=[]

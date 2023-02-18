@@ -34,19 +34,18 @@ function CarShow() {
           </>
         )}
       </CubeCamera>
-      {/* <Rings /> */}
-      {/* <Boxes/>  */}
+
       <spotLight
         color={[1, 0.25, 0.7]}
-        intensity={1.5}
+        intensity={0.5}
         angle={0.6}
         penumbra={0.5}
         position={[5, 5, 0]}
         castShadow
         shadow-bias={-0.0001}
-      />
+      /> *
             <Totus/>
-      <spotLight
+      {/* <spotLight
         color={[0.14, 0.5, 1]}
         intensity={2}
         angle={0.96}
@@ -54,11 +53,11 @@ function CarShow() {
         position={[0, 1, 3]}
         castShadow
         shadow-bias={-0.0001}
-      />
+      /> */}
     <Trees/>
        <Ground />
         <EffectComposer>
-          <DepthOfField focusDistance={0.0035} focalLength={0.05} bokehScale={4} height={480}/>
+          <DepthOfField focusDistance={0.0025} focalLength={0.015} blur={1} bokehScale={4} height={480}/>
           <Bloom
           blendFunction={BlendFunction.ADD}
           intensity={1.3}
@@ -70,7 +69,7 @@ function CarShow() {
           />
           <ChromaticAberration 
           blendFunction={BlendFunction.NORMAL}
-          offset={[0.00006, 0.0002]}
+          offset={[0.0006, 0.0002]}
           />
         </EffectComposer>
       {/* <mesh>
