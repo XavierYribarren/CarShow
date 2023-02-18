@@ -55,7 +55,7 @@ const orbus = useRef()
         intensity={0.5}
         angle={0.6}
         penumbra={0.5}
-        position={[0, 5, -15]}
+        position={[0, 5, -10]}
         castShadow
         shadow-bias={-0.0001}
       /> *
