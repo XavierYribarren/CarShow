@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Ground } from './Ground';
 import { Car } from './Car';
@@ -18,7 +18,7 @@ import {
 import { Bloom, ChromaticAberration, DepthOfField, EffectComposer } from '@react-three/postprocessing';
 import {BlendFunction} from "postprocessing"
 
-function CarShow() {
+function CarShow({aDonf}) {
 
 const orbus = useRef()
 
@@ -28,16 +28,18 @@ const orbus = useRef()
     maxPitch: 0.051, // Max amount camera can pitch in either direction
     maxRoll: 0.1, // Max amount camera can roll in either direction
     yawFrequency: 0.1, // Frequency of the the yaw rotation
-    pitchFrequency: 1.5, // Frequency of the pitch rotation
+    pitchFrequency: aDonf?  10 :1.5 , // Frequency of the pitch rotation
     rollFrequency: 0.1, // Frequency of the roll rotation
     intensity: 0.5, // initial intensity of the shake
     decay: false, // should the intensity decay over time
     decayRate: 0.95, // if decay = true this is the rate at which intensity will reduce at
     controls: orbus.current, // if using orbit controls, pass a ref here so we can update the rotation
   }
+
+  console.log(aDonf)
   return (
     <>
- <OrbitControls ref={orbus} target={[0, 0.35, 0]} maxPolarAngle={1.45} />
+ <OrbitControls ref={orbus} target={[0, 0.35, 0]} maxPolarAngle={1.45}/>
       <PerspectiveCamera makeDefault fov={50} position={[2, 1, 5]}/> 
 
       <color args={[0.01, 0.01, 0.01]} attach='background' />
@@ -60,22 +62,14 @@ const orbus = useRef()
         shadow-bias={-0.0001}
       /> *
             <Totus/>
-      {/* <spotLight
-        color={[0.14, 0.5, 1]}
-        intensity={2}
-        angle={0.96}
-        penumbra={0.5}
-        position={[0, 1, 3]}
-        castShadow
-        shadow-bias={-0.0001}
-      /> */}
-    <Trees/>
-       <Ground />
+<fog/>
+    <Trees aDonf={aDonf}/>
+       <Ground aDonf={aDonf}/>
         <EffectComposer>
-          <DepthOfField focusDistance={0.0025} focalLength={0.015} blur={1} bokehScale={4} height={480}/>
+          <DepthOfField focusDistance={0.0025} focalLength={0.015} blur={1} bokehScale={aDonf? 10 : 4} height={480}/>
           <Bloom
           blendFunction={BlendFunction.ADD}
-          intensity={1.3}
+          intensity={aDonf? 3: 1.3}
           width={400}
           height={400}
           kernelSize={5}
@@ -84,25 +78,23 @@ const orbus = useRef()
           />
           <ChromaticAberration 
           blendFunction={BlendFunction.NORMAL}
-          offset={[0.0006, 0.0002]}
+          offset={aDonf?[0.0026, 0.0002]: [0.0006, 0.0002]}
           />
         </EffectComposer>
-      {/* <mesh>
-      <boxGeometry args={[1,1,1]}/>
-      <meshLambertMaterial color={'red'} />
-    </mesh> */}
+
     </>
   );
 }
 function App() {
+  const [aDonf, setADonf] = useState(false)
   return (
-    // <Suspense >
-      <Canvas shadows linear gl={{antialias: true}}>
-        <CarShow />
+
+      <Canvas shadows linear gl={{antialias: true}} onClick={() => setADonf(!aDonf)}>
+        <CarShow aDonf={aDonf}/>
         <Stars radius={100} depth={500} count={5000} factor={4} saturation={0} fade speed={1}/>
   
       </Canvas>
-    // </Suspense>
+
   );
 }
 

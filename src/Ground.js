@@ -5,7 +5,7 @@ import { LinearEncoding } from "three";
 import { RepeatWrapping } from "three";
 import { TextureLoader } from "three";
 
-export function Ground (){
+export function Ground ({aDonf}){
     const [roughness, normal] = useLoader(TextureLoader, [
         process.env.PUBLIC_URL + "textures/terrain-roughness.jpg",
         process.env.PUBLIC_URL + "textures/terrain-normal.jpg",
@@ -18,9 +18,10 @@ export function Ground (){
     });
     normal.encoding = LinearEncoding;
     }, [roughness, normal]);
-
+    let value
+    aDonf ? (value = 0.89 ): (value = 0.48)
     useFrame((state, delta) => {
-        let t = -state.clock.getElapsedTime()*0.48;
+        let t = -state.clock.getElapsedTime()*value;
         roughness.offset.set(0,t);
         normal.offset.set(0,t);
     })

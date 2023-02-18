@@ -19,16 +19,14 @@ export function Car() {
         object.receiveShadow = true;
         object.material.envMapIntensity = 20;
 
-        // console.log(object )
+
       }
     });
     console.log(gltf.scene.children[0].children[0].children[0].children[0]);
     gltf.scene.children[0].children[0].children[0].children[0].children[3].children[0].material.color = {r:0.1,g:0.01,b:0.2};
     gltf.scene.children[0].children[0].children[0].children[0].children[4].children[0].material.color = {r:0.1,g:0.1,b:0.2};
     gltf.scene.children[0].children[0].children[0].children[0].children[12].children[0].material.color = {r:0.01,g:0.01,b:0.01}
-// gltf.scene.children[0].children[0].children[0].children[0].children[32]
-// gltf.scene.children[0].children[0].children[0].children[0].children[33]
-// gltf.scene.children[0].children[0].children[0].children[0].children[34]
+
   }, [gltf]);
 
   useFrame((state, delta)=> {

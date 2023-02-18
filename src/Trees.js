@@ -5,7 +5,8 @@ import * as THREE from 'three'
 import { useRef } from 'react';
 
 
-export function Trees(){
+export function Trees({aDonf}){
+
     const tree = useRef()
 
      const itemsRef = useRef([]);
@@ -30,13 +31,14 @@ let posX = -3
     
         for (let i = 0; i<itemsRef.current.length; i++){
           let mesh = itemsRef.current[i];
-          let z = (i - 20)*13.5+((elapsed*8.4)%100)*2;
+          let z = aDonf ? (i - 20)*13.5+((elapsed*18.4)%100)*2     :(i - 20)*13.5+((elapsed*8.4)%100)*2;
           mesh.position.set(posX,-4,-z);
     
           mesh.scale.set(Math.random(), Math.random(), Math.random())
           let dist = Math.abs(z);
           mesh.scale.set( 1 - dist * 0.0084,0.991 - dist * 0.0004,1 - dist * 0.0084);
           
+          console.log(aDonf)
     
         }
       })
