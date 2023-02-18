@@ -35,10 +35,10 @@ export function Car() {
     let t = state.clock.getElapsedTime();
 
     let group = gltf.scene.children[0].children[0].children[0].children[0];
-    group.children[12].rotation.y = t*2;
-    group.children[32].rotation.y = t*2;
-    group.children[33].rotation.y = t*2;
-    group.children[34].rotation.y = t*2;
+    group.children[12].rotation.y = t*8;
+    group.children[32].rotation.y = t*8;
+    group.children[33].rotation.y = t*8;
+    group.children[34].rotation.y = t*8;
   })
   return <primitive object={gltf.scene} rotation-y={-1.53} />;
 }
